@@ -29,7 +29,7 @@ stack_t *create_node(int n)
  * Return: void
  */
 
-void pall(stack_t **stack, unsigned int number_line)
+void pall(stack_t **stack, __attribute__((unused)) unsigned int number_line)
 {
 	stack_t *temp = *stack;
 

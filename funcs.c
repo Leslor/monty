@@ -7,7 +7,7 @@
  * Return: void
  */
 
-void push(stack_t **stack, unsigned int number_line)
+void push(stack_t **stack, __attribute__((unused))unsigned int number_line)
 {
 	stack_t *newNode;
 
@@ -80,6 +80,8 @@ void swap(stack_t **stack, unsigned int number_line)
  */
 void nop(stack_t **stack, unsigned int number_line)
 {
+	(void) stack;
+	(void) number_line;
 }
 
 /**
