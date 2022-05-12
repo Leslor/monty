@@ -35,6 +35,7 @@ void checker(line_t line, global_t *global, char *opcode)
 		free(line.tokens);
 		free_stack(&(global->stack));
 		fclose(global->file);
+		free(global->buf);
 		free(global);
 		fprintf(stderr, "L%d: usage: push integer\n", line.number);
 		exit(EXIT_FAILURE);

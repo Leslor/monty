@@ -36,7 +36,6 @@ void readline(char *buf, line_t *line)
  */
 void readfile(FILE *fp)
 {
-	char *l = NULL;
 	size_t len = 0;
 	ssize_t read;
 	line_t line;
@@ -51,11 +50,12 @@ void readfile(FILE *fp)
 	line.tokens = NULL;
 	global->file = fp;
 	global->stack = NULL;
+	global->buf = NULL;
 
-	while ((read = getline(&l, &len, fp)) != -1)
+	while ((read = getline(&(global->buf), &len, fp)) != -1)
 	{
 		line.number++;
-		readline(l, &line);
+		readline(global->buf, &line);
 		if (line.tokens && line.tokens[0] != NULL)
 		{
 			get_op_func(line, global)(&(global->stack), line.number);
@@ -63,9 +63,9 @@ void readfile(FILE *fp)
 		else
 			free(line.tokens);
 	}
-	if (l)
-		free(l);
 	fclose(global->file);
+	if (global->buf)
+		free(global->buf);
 	if (global->stack)
 		free_stack(&(global->stack));
 	free(global);
