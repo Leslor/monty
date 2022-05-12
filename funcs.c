@@ -44,7 +44,6 @@ void pop(stack_t **stack, unsigned int number_line)
 	(*stack) = (*stack)->next;
 	/*temp1->next = NULL;*/
 	free(temp1);
-	(*stack)->prev = NULL;
 }
 
 /**
