@@ -76,15 +76,18 @@ typedef struct arg_s
 extern arg_t argument;
 
 
-/*Prototipe Functions */
+/* Main Functions */
+void (*get_op_func(line_t line, global_t *global))(stack_t **, unsigned int);
+
+/* Parse Functions */
 void readline(char *buf, line_t *line);
 void readfile(FILE *fp);
-void readfile(FILE *fp);
 
-/*Protoripe Functions */
-void (*get_op_func(line_t line, global_t *global))(stack_t **, unsigned int);
+/* Aux Functions */
 void free_stack(stack_t **stack);
 
 /* Checker Functions */
 void check_push(line_t line, global_t *global, char *opcode);
+int check_argument(char *str);
+
 #endif /*MONTY_H*/
