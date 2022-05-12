@@ -59,6 +59,7 @@ typedef struct global_s
 {
 	FILE *file;
 	stack_t *stack;
+	char *buf;
 } global_t;
 
 /**
@@ -86,7 +87,7 @@ void readfile(FILE *fp);
 void free_stack(stack_t **stack);
 
 /* Checker Functions */
-void check_push(line_t line, global_t *global, char *opcode);
+void checker(line_t line, global_t *global, char *opcode);
 int check_argument(char *str);
 
 /* Functions */
@@ -99,4 +100,5 @@ void swap(stack_t **stack, unsigned int number_line);
 void add(stack_t **stack, unsigned int number_line);
 void nop(stack_t **stack, unsigned int number_line);
 void pop(stack_t **stack, unsigned int number_line);
+
 #endif /*MONTY_H*/
