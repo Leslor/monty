@@ -22,7 +22,8 @@ void (*get_op_func(line_t line, global_t *global))(stack_t **, unsigned int)
 	{
 		if (strcmp(ops[i].opcode, line.tokens[0]) == 0)
 		{
-			check_push(line, global, ops[i].opcode);
+			if (strcmp(ops[i].opcode, "push") == 0)
+				check_push(line, global, ops[i].opcode);
 			free(line.tokens);
 			return (ops[i].f);
 		}

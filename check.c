@@ -2,6 +2,7 @@
 
 arg_t argument = {0};
 
+
 int check_argument(char *str)
 {
         unsigned int i = 0;

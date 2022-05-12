@@ -90,4 +90,11 @@ void free_stack(stack_t **stack);
 void check_push(line_t line, global_t *global, char *opcode);
 int check_argument(char *str);
 
+/* Functions */
+stack_t *create_node(int n);
+void push(stack_t **stack, unsigned int number_line);
+void pall(stack_t **stack, unsigned int number_line);
+void pint(stack_t **stack, unsigned int number_line);
+void free_stack(stack_t **stack);
+
 #endif /*MONTY_H*/
