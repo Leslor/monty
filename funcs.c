@@ -101,11 +101,10 @@ void add(stack_t **stack, unsigned int number_line)
 		fprintf(stderr, "L%u: can't add, stack too short\n", number_line);
 		exit(EXIT_FAILURE);
 	}
-
-	temp4 = (*stack)->next;
+	temp4 = *stack;
+	(*stack) = (*stack)->next;
 	result = (*stack)->n + temp4->n;
-	temp4->n = result;
+	(*stack)->n = result;
 
-	(*stack) = temp4;
 	free(temp4);
 }
