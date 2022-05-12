@@ -53,20 +53,21 @@ void readfile(FILE *fp)
 
         global->file = fp;
         global->stack = NULL;
+        global->buf = NULL;
 
-        while ((read = getline(&l, &len, fp)) != -1)
+        while ((read = getline(&(global->buf), &len, fp)) != -1)
         {
                 line.number++;
-                readline(l, &line);
+                readline(global->buf, &line);
                 if (line.tokens)
                 {
                         get_op_func(line, global)(&(global->stack), line.number);
                 }
         }
 
-        if (l)
-                free(l);
         fclose(global->file);
         free_stack(&(global->stack));
+	if (global->buf)
+		free(global->buf);
         free(global);
 }
