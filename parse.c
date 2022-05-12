@@ -56,15 +56,18 @@ void readfile(FILE *fp)
 	{
 		line.number++;
 		readline(l, &line);
-		if (line.tokens)
+		if (line.tokens && line.tokens[0] != NULL)
 		{
 			get_op_func(line, global)(&(global->stack), line.number);
 		}
+		else
+			free(line.tokens);
 	}
 	if (l)
 		free(l);
 	fclose(global->file);
-	free_stack(&(global->stack));
+	if (global->stack)
+		free_stack(&(global->stack));
 	free(global);
 }
 
@@ -90,7 +93,6 @@ int main(int ac, char **av)
 		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
 		exit(EXIT_FAILURE);
 	}
-
 	readfile(fp);
 
 	exit(EXIT_SUCCESS);
