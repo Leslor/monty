@@ -1,21 +1,17 @@
 #include "monty.h"
 
-stack_t *create_node(int n)
-{
-	stack_t *newNode = malloc(sizeof(stack_t));
-	if (newNode == NULL)
-		return (NULL);
-
-	newNode->n = n;
-	newNode->next = NULL;
-	newNode->prev = NULL;
-
-	return (newNode);
-}
+/**
+ * push - add a new node to the stack
+ * @stack:  the top of the stack
+ * @number_line: number of the monty file to execute
+ * Return: void
+ */
 
 void push(stack_t **stack, unsigned int number_line)
 {
-	stack_t *newNode = create_node(argument.n);
+	stack_t *newNode;
+
+	newNode = create_node(argument.n);
 	if (newNode == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
@@ -28,70 +24,84 @@ void push(stack_t **stack, unsigned int number_line)
 	*stack = newNode;
 }
 
-void pall(stack_t **stack, unsigned int number_line)
+
+/**
+ * pop - delete a new node to the stack
+ * @stack:  the top of the stack
+ * @number_line: number of the monty file to execute
+ * Return: void
+ */
+
+void pop(stack_t **stack, unsigned int number_line)
 {
-	stack_t *temp = *stack;
+	stack_t *temp1 = *stack;
 
-	if (*stack == NULL)
-		return;
-
-	while(temp)
+	if (temp1 == NULL)
 	{
-		printf("%d\n", temp->n);
-		temp = temp->next;
-	}
-}
-
-void pint(stack_t **stack, unsigned int number_line)
-{
-	if (*stack == NULL)
-	{
-		fprintf(stderr, "L%d: can't pint, stack empty\n", number_line);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", number_line);
 		exit(EXIT_FAILURE);
 	}
-	printf("%d\n", (*stack)->n);
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+	temp1->next = NULL;
 }
 
 /**
- * free_stack - Free stack_t list
- * @stack: The pointer to the head of the stack_t list
- *
+ * swap - swap the 2 tops of the stack
+ * @stack:  the top of the stack
+ * @number_line: number of the monty file to execute
  * Return: void
  */
-void free_stack(stack_t **stack)
+void swap(stack_t **stack, unsigned int number_line)
 {
-        stack_t *tmp = NULL;
+	stack_t *temp3;
 
-	if (stack == NULL || *stack == NULL)
-		return;
-
-	tmp = *stack;
-	while (*stack)
+	if (stack == NULL || (*stack)->next == NULL)
 	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
+		fprintf(stderr, "L%u: can't swap too short\n", number_line);
+		exit(EXIT_FAILURE);
 	}
+	temp3 = (*stack)->next;
+	(*stack)->prev = temp3;
+	(*stack)->next = temp3->next;
+	temp3->prev = NULL;
+
+	if (temp3->next)
+		temp3->next->prev = (*stack);
+	temp3->next = (*stack);
+	(*stack) = temp3;
 }
 
-int main(int ac, char **av)
+/**
+ * nop - Do nothing
+ * @stack:  the top of the stack
+ * @number_line: number of the monty file to execute
+ * Return: void
+ */
+void nop(stack_t **stack, unsigned int number_line)
 {
-	FILE *fp;
+}
 
-	if (ac != 2)
+/**
+ * add - add 2 tops elements of the stack
+ * @stack:  the top of the stack
+ * @number_line: number of the monty file to execute
+ * Return: void
+ */
+
+void add(stack_t **stack, unsigned int number_line)
+{
+	int result;
+	stack_t *temp4;
+
+	if (stack == NULL || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
+		fprintf(stderr, "L%u: can't add, stack too short\n", number_line);
 		exit(EXIT_FAILURE);
 	}
+	temp4 = (*stack)->next;
+	result = (*stack)->n + temp4->n;
+	temp4->next->n = result;
 
-	fp = fopen(av[1], "r");
-	if (fp == NULL)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
-		exit(EXIT_FAILURE);
-	}
-
-	readfile(fp);
-
-	exit(EXIT_SUCCESS);
+	(*stack) = temp4->next;
 }
