@@ -10,14 +10,19 @@
 void push(stack_t **stack, __attribute__((unused))unsigned int number_line)
 {
 	stack_t *newNode;
-
+	
 	newNode = create_node(argument.n);
 	if (newNode == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
+	if (*stack == NULL || stack == NULL)
+	{
+		newNode->next = NULL;
+		newNode->prev = NULL;
+		*stack = newNode;
+	}
 	newNode->next = *stack;
 	if (*stack)
 		(*stack)->prev = newNode;
