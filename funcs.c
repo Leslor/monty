@@ -33,13 +33,14 @@ void push(stack_t **stack, __attribute__((unused))unsigned int number_line)
 
 void pop(stack_t **stack, unsigned int number_line)
 {
-	stack_t *temp1 = *stack;
+	stack_t *temp1;
 
-	if (temp1 == NULL)
+	if (stack == NULL || *stack == NULL )
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", number_line);
 		exit(EXIT_FAILURE);
 	}
+	temp1 = *stack;
 	(*stack) = (*stack)->next;
 	(*stack)->prev = NULL;
 	temp1->next = NULL;
