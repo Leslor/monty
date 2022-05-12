@@ -2,6 +2,7 @@
 #define MONTY_H
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -74,6 +75,11 @@ typedef struct arg_s
 
 extern arg_t argument;
 
+
+/*Prototipe Functions */
+void readline(char *buf, line_t *line);
+void readfile(FILE *fp);
+void readfile(FILE *fp);
 
 /*Protoripe Functions */
 void (*get_op_func(line_t line, global_t *global))(stack_t **, unsigned int);
