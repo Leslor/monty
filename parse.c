@@ -19,11 +19,11 @@ void readline(char *buf, line_t *line)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(buf, " \n");
+	token = strtok(buf, "\n ");
 	for (i = 0; token && i < 2; i++)
 	{
 		line->tokens[i] = token;
-		token = strtok(NULL, " \n");
+		token = strtok(NULL, "\n ");
 	}
 	line->tokens[i] = NULL;
 }

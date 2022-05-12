@@ -17,7 +17,6 @@ void push(stack_t **stack, __attribute__((unused))unsigned int number_line)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
 	newNode->next = *stack;
 	if (*stack)
 		(*stack)->prev = newNode;
