@@ -2,8 +2,10 @@
 #define MAIN_H
 
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h> 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -34,15 +36,27 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+
+/**
+ * struct line_s - Struct for manipulate each line in a file
+ * @number: Line number
+ * @tokens: Tokens of the line
+ *
+ * Description: Line in a file
+ */
+typedef struct line_s
+{
+	int number;
+	char **tokens;
+} line_t;
+
+
+
 /*Protoripe Functions */
 
-
-
-
-
-
-
-
+void readline(char *buf, line_t *line);
+void readfile(FILE *fp);
+void readfile(FILE *fp);
 
 
 #endif /*MAIN_H*/
