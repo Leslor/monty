@@ -9,24 +9,23 @@
  */
 void readline(char *buf, line_t *line)
 {
-        int i;
-        char *token = NULL;
+	int i;
+	char *token = NULL;
 
-        line->tokens = malloc(sizeof(char *) * 3);
-        if (line->tokens == NULL)
-        {
-                fprintf(stderr, "Error: malloc failed\n");
-                exit(EXIT_FAILURE);
-        }
+	line->tokens = malloc(sizeof(char *) * 3);
 
-        token = strtok(buf, " \n");
-        for (i = 0; token && i < 2; i++)
-        {
-                line->tokens[i] = token;
-                token = strtok(NULL, " \n");
-        }
-
-        line->tokens[i] = NULL;
+	if (line->tokens == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	token = strtok(buf, " \n");
+	for (i = 0; token && i < 2; i++)
+	{
+		line->tokens[i] = token;
+		token = strtok(NULL, " \n");
+	}
+	line->tokens[i] = NULL;
 }
 
 /**
@@ -37,37 +36,62 @@ void readline(char *buf, line_t *line)
  */
 void readfile(FILE *fp)
 {
-        char *l = NULL;
-        size_t len = 0;
-        ssize_t read;
-        line_t line;
-        global_t *global = malloc(sizeof(global_t));
-        if (!global)
-        {
-                fprintf(stderr, "Error: malloc failed\n");
-                exit(EXIT_FAILURE);
-        }
+	char *l = NULL;
+	size_t len = 0;
+	ssize_t read;
+	line_t line;
+	global_t *global = malloc(sizeof(global_t));
 
-        line.number = 0;
-        line.tokens = NULL;
+	if (!global)
+	{
+		fprintf(stderr, "Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
+	line.number = 0;
+	line.tokens = NULL;
+	global->file = fp;
+	global->stack = NULL;
 
-        global->file = fp;
-        global->stack = NULL;
-        global->buf = NULL;
+	while ((read = getline(&l, &len, fp)) != -1)
+	{
+		line.number++;
+		readline(l, &line);
+		if (line.tokens)
+		{
+			get_op_func(line, global)(&(global->stack), line.number);
+		}
+	}
+	if (l)
+		free(l);
+	fclose(global->file);
+	free_stack(&(global->stack));
+	free(global);
+}
 
-        while ((read = getline(&(global->buf), &len, fp)) != -1)
-        {
-                line.number++;
-                readline(global->buf, &line);
-                if (line.tokens)
-                {
-                        get_op_func(line, global)(&(global->stack), line.number);
-                }
-        }
+/**
+ * main - create and read the file
+ * @ac: argument count
+ * @av: argument vector
+ * Return: ...
+ */
+int main(int ac, char **av)
+{
+	FILE *fp;
 
-        fclose(global->file);
-        free_stack(&(global->stack));
-	if (global->buf)
-		free(global->buf);
-        free(global);
+	if (ac != 2)
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+
+	fp = fopen(av[1], "r");
+	if (fp == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", av[1]);
+		exit(EXIT_FAILURE);
+	}
+
+	readfile(fp);
+
+	exit(EXIT_SUCCESS);
 }
