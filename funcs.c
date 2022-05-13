@@ -31,9 +31,15 @@ void push(stack_t **stack, __attribute__((unused))unsigned int number_line)
  * Return: void
  */
 
-void pop(stack_t **stack, __attribute__((unused))unsigned int number_line)
+void pop(stack_t **stack, unsigned int number_line)
 {
 	stack_t *temp1;
+
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pop an empty stack\n", number_line);
+		exit(EXIT_FAILURE);
+	}
 
 	temp1 = *stack;
 	(*stack) = (*stack)->next;
@@ -47,9 +53,16 @@ void pop(stack_t **stack, __attribute__((unused))unsigned int number_line)
  * @number_line: number of the monty file to execute
  * Return: void
  */
-void swap(stack_t **stack, __attribute__((unused))unsigned int number_line)
+void swap(stack_t **stack, unsigned int number_line)
 {
 	stack_t *temp3;
+
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't swap, stack too short\n",
+			number_line);
+		exit(EXIT_FAILURE);
+	}
 
 	temp3 = (*stack);
 	(*stack) = (*stack)->next;
@@ -90,6 +103,13 @@ void add(stack_t **stack, __attribute__((unused))unsigned int number_line)
 {
 	int result;
 	stack_t *temp4;
+
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n",
+			number_line);
+		exit(EXIT_FAILURE);
+	}
 
 	temp4 = *stack;
 	(*stack) = (*stack)->next;

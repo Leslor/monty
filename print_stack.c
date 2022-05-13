@@ -35,6 +35,7 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int number_line)
 
 	if (*stack == NULL)
 		return;
+
 	while (temp)
 	{
 		printf("%d\n", temp->n);
@@ -48,7 +49,13 @@ void pall(stack_t **stack, __attribute__((unused)) unsigned int number_line)
  * @number_line: number line of the file
  * Return: void
  */
-void pint(stack_t **stack, __attribute__((unused)) unsigned int number_line)
+void pint(stack_t **stack, unsigned int number_line)
 {
+	if (stack == NULL || *stack == NULL)
+	{
+		fprintf(stderr, "L%d: can't pint, stack empty\n", number_line);
+		exit(EXIT_FAILURE);
+	}
+
 	printf("%d\n", (*stack)->n);
 }
