@@ -61,15 +61,20 @@ void swap(stack_t **stack, unsigned int number_line)
 		fprintf(stderr, "L%u: can't swap too short\n", number_line);
 		exit(EXIT_FAILURE);
 	}
-	temp3 = (*stack)->next;
-	(*stack)->prev = temp3;
-	(*stack)->next = temp3->next;
-	temp3->prev = NULL;
-
-	if (temp3->next)
-		temp3->next->prev = *stack;
-	temp3->next = *stack;
-	*stack = temp3;
+	temp3 = (*stack);
+	(*stack) = (*stack)->next;
+	if ((*stack)->next)
+	{
+		temp3->next = (*stack)->next;
+		(*stack)->next->prev = temp3;
+	}
+	else
+	{
+		temp3->next = NULL;
+	}
+	(*stack)->next = temp3;
+	temp3->prev = (*stack);
+	(*stack)->prev = NULL;
 }
 
 /**
