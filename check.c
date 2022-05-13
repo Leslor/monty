@@ -51,10 +51,7 @@ void checker(line_t line, global_t *global, char *opcode)
 	}
 	else if (strcmp(opcode, "push") == 0)
 	{
-		if (line.tokens[1] == negative)
-			argument.n = -atoi(line.tokens[1]);
-		else
-			argument.n = atoi(line.tokens[1]);
+		argument.n = atoi(line.tokens[1]);
 	}
 
 	if (strcmp(opcode, "pint") == 0 && global->stack == NULL)
