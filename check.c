@@ -34,7 +34,7 @@ int check_argument(char *str)
  */
 void checker(line_t line, global_t *global, char *opcode)
 {
-	char * negative = "-";
+	char *negative = "-";
 
 	if (strcmp(opcode, "push") == 0 && !check_argument(line.tokens[1]))
 	{
