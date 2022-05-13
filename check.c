@@ -36,29 +36,43 @@ int check_argument(char *str)
  */
 void checker(line_t line, global_t *global, char *opcode)
 {
+	stack_t **tmp = &(global->stack);
+
 	if (strcmp(opcode, "push") == 0 && !check_argument(line.tokens[1]))
 	{
-		free(line.tokens);
-		free_stack(&(global->stack));
-		fclose(global->file);
-		free(global->buf);
-		free(global);
+		free_elements_in_structs(line, global);
 		fprintf(stderr, "L%d: usage: push integer\n", line.number);
 		exit(EXIT_FAILURE);
 	}
 	else if (strcmp(opcode, "push") == 0)
-	{
 		argument.n = atoi(line.tokens[1]);
-	}
 
-	if (strcmp(opcode, "pint") == 0 && global->stack == NULL)
+	if (strcmp(opcode, "pint") == 0 && (tmp == NULL || *tmp == NULL))
 	{
-		free(line.tokens);
-		free_stack(&(global->stack));
-		fclose(global->file);
-		free(global->buf);
-		free(global);
+		free_elements_in_structs(line, global);
 		fprintf(stderr, "L%d: can't pint, stack empty\n", line.number);
+		exit(EXIT_FAILURE);
+	}
+	else if (strcmp(opcode, "pop") == 0 && (tmp == NULL || *tmp == NULL))
+	{
+		free_elements_in_structs(line, global);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line.number);
+		exit(EXIT_FAILURE);
+	}
+	else if (strcmp(opcode, "swap") == 0 &&
+		 (tmp == NULL || *tmp == NULL || (*tmp)->next == NULL))
+	{
+		free_elements_in_structs(line, global);
+		fprintf(stderr, "L%d: can't swap, stack too short\n",
+			line.number);
+		exit(EXIT_FAILURE);
+	}
+	else if (strcmp(opcode, "add") == 0 &&
+		 (tmp == NULL || *tmp == NULL || (*tmp)->next == NULL))
+	{
+		free_elements_in_structs(line, global);
+		fprintf(stderr, "L%d: can't add, stack too short\n",
+			line.number);
 		exit(EXIT_FAILURE);
 	}
 }

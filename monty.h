@@ -78,28 +78,27 @@ extern arg_t argument;
 
 /* Main Functions */
 void (*get_op_func(line_t line, global_t *global))(stack_t **, unsigned int);
-
-/* Parse Functions */
 void readline(char *buf, line_t *line);
 void readfile(FILE *fp);
-
-/* Aux Functions */
-void free_stack(stack_t **stack);
 
 /* Checker Functions */
 void checker(line_t line, global_t *global, char *opcode);
 int check_argument(char *str);
 
-/* Functions */
+/* Op Functions */
 stack_t *create_node(int n);
 void push(stack_t **stack, unsigned int number_line);
 void pall(stack_t **stack, unsigned int number_line);
 void pint(stack_t **stack, unsigned int number_line);
-void free_stack(stack_t **stack);
 void swap(stack_t **stack, unsigned int number_line);
 void add(stack_t **stack, unsigned int number_line);
 void nop(stack_t **stack, unsigned int number_line);
 void pop(stack_t **stack, unsigned int number_line);
 void sub(stack_t **stack, unsigned int number_line);
 void mul(stack_t **stack, unsigned int number_line);
+
+/* Aux functions */
+void free_stack(stack_t **stack);
+void free_elements_in_structs(line_t line, global_t *global);
+
 #endif /*MONTY_H*/
