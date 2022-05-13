@@ -13,6 +13,12 @@ int check_argument(char *str)
 
 	if (!str)
 		return (0);
+	if (*str == '-')
+	{
+		str++;
+		if (*str < '0' || *str > '9')
+			return (0);
+	}
 	for (i = 0; *(str + i); i++)
 	{
 		if (*(str + i) < '0' || *(str + i) > '9')
