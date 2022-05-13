@@ -35,7 +35,7 @@ void (*get_op_func(line_t line, global_t *global))(stack_t **, unsigned int)
 		i++;
 	}
 
-	fprintf(stderr, "L%d: unknown instruction%s \n", line.number,
+	fprintf(stderr, "L%d: unknown instruction%s\n", line.number,
 					line.tokens[0]);
 	free(line.tokens);
 	free_stack(&(global->stack));
