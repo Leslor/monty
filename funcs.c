@@ -67,9 +67,9 @@ void swap(stack_t **stack, unsigned int number_line)
 	temp3->prev = NULL;
 
 	if (temp3->next)
-		temp3->next->prev = (*stack);
-	temp3->next = (*stack);
-	(*stack) = temp3;
+		temp3->next->prev = *stack;
+	temp3->next = *stack;
+	*stack = temp3;
 }
 
 /**
