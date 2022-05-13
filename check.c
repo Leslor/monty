@@ -13,13 +13,6 @@ int check_argument(char *str)
 
 	if (!str)
 		return (0);
-	if (*str == '-')
-	{
-		str++;
-		if (*str < '0' || *str > '9')
-			return (0);
-		str++;
-	}
 	for (i = 0; *(str + i); i++)
 	{
 		if (*(str + i) < '0' || *(str + i) > '9')
@@ -37,7 +30,6 @@ int check_argument(char *str)
  */
 void checker(line_t line, global_t *global, char *opcode)
 {
-
 	if (strcmp(opcode, "push") == 0 && !check_argument(line.tokens[1]))
 	{
 		free(line.tokens);
