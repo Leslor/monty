@@ -113,3 +113,8 @@ void add(stack_t **stack, unsigned int number_line)
 
 	free(temp4);
 }
+
+
+
+
+

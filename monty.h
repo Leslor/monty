@@ -100,5 +100,6 @@ void swap(stack_t **stack, unsigned int number_line);
 void add(stack_t **stack, unsigned int number_line);
 void nop(stack_t **stack, unsigned int number_line);
 void pop(stack_t **stack, unsigned int number_line);
-
+void sub(stack_t **stack, unsigned int number_line);
+void mul(stack_t **stack, unsigned int number_line);
 #endif /*MONTY_H*/
