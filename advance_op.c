@@ -9,7 +9,7 @@
 
 void sub(stack_t **stack, unsigned int number_line)
 {
-	int result;
+	long result;
 	stack_t *temp4;
 
 	if (*stack == NULL || stack == NULL || (*stack)->next == NULL)
@@ -35,7 +35,7 @@ void sub(stack_t **stack, unsigned int number_line)
 
 void mul(stack_t **stack, unsigned int number_line)
 {
-	int result;
+	long result;
 	stack_t *temp4;
 
 	if (*stack == NULL || stack == NULL || (*stack)->next == NULL)
