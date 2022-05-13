@@ -13,6 +13,10 @@ int check_argument(char *str)
 
 	if (!str)
 		return (0);
+	if (*str == '-')
+	{
+		str++;
+	}
 	for (i = 0; *(str + i); i++)
 	{
 		if (*(str + i) < '0' || *(str + i) > '9')
@@ -30,6 +34,8 @@ int check_argument(char *str)
  */
 void checker(line_t line, global_t *global, char *opcode)
 {
+	char * negative = "-";
+
 	if (strcmp(opcode, "push") == 0 && !check_argument(line.tokens[1]))
 	{
 		free(line.tokens);
@@ -42,7 +48,10 @@ void checker(line_t line, global_t *global, char *opcode)
 	}
 	else if (strcmp(opcode, "push") == 0)
 	{
-		argument.n = atoi(line.tokens[1]);
+		if (line.tokens[1] == negative)
+			argument.n = -atoi(line.tokens[1]);
+		else
+			argument.n = atoi(line.tokens[1]);
 	}
 
 	if (strcmp(opcode, "pint") == 0 && global->stack == NULL)
